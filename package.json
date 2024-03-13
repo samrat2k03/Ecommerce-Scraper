@@ -1,0 +1,13 @@
+{
+  "name": "web-scrape",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "author": "Samrat d",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.3",
+    "puppeteer": "^22.4.1"
+  }
+}
