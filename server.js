@@ -1,6 +1,6 @@
 import express from "express"
 import {scraper} from "./scrapes/amazonRoute.js";
-import { flipkart } from "./scrapes/flipkartRoute.js";
+import { flipkartScraper } from "./scrapes/flipkartRoute.js";
 
 const app = express();
 app.use(express.json());
@@ -17,8 +17,8 @@ app.get('/query/amazon/:name', async (req, res) => {
 });
 
 app.get('/query/flipkart/:name', async (req, res) => {
-    const productName1 = req.params.name;
-    const flipkartSearchArray = await flipkart(productName1);
+    const product_name = req.params.name;0
+    const flipkartSearchArray = await flipkartScraper(product_name);
     if (flipkartSearchArray.length > 0) {
         res.json(flipkartSearchArray);
     } else {

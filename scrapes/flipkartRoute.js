@@ -1,36 +1,41 @@
 import puppeteer from "puppeteer";
 
-export const flipkart = async (productName) => {
+export const flipkartScraper = async (productName) => {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(60000);
-    await page.goto("https://www.flipkart.com/");
-    await page.type("input[type='text']", productName);
-    await page.click("button[type='submit']");
-    await page.waitForNavigation();
+    await page.goto("https://www.flipkart.com/search?q=" + productName);
 
-    const getProductName = await page.$$eval(
-        "._4rR01T",
-        (nodes) => nodes.map((n) => n.innerText.trim())
-    );
+    try {
+        await page.waitForSelector('div._2kHMtA');
 
-    const getProductPrice = await page.$$eval(
-        "._30jeq3._1_WHN1",
-        (nodes) => nodes.map((n) => n.innerText.trim())
-    );
+        const products = await page.evaluate(() => {
+            const productNodes = document.querySelectorAll('div._2kHMtA');
+            const productList = [];
 
-    const getProductImage = await page.$$eval(
-        "._396cs4",
-        (nodes) => nodes.map((n) => n.src)
-    );
+            productNodes.forEach(node => {
+                const product = {};
+                const linkElement = node.querySelector('a._1fQZEK');
+                const name = linkElement.textContent.trim();
+                const priceElement = node.querySelector('div._30jeq3');
+                const price = priceElement.textContent.trim();
+                const imageElement = node.querySelector('img._396cs4');
+                const imageLink = imageElement.src;
 
-    const flipkartSearchArray = getProductName.map((productName, index) => ({
-        productName,
-        price: getProductPrice[index],
-        image: getProductImage[index]
-    }));
+                product.name = name;
+                product.price = price;
+                product.imageLink = imageLink;
 
-    await browser.close();
+                productList.push(product);
+            });
 
-    return flipkartSearchArray;
+            return productList;
+        });
+
+        await browser.close();
+        return products;
+    } catch (error) {
+        console.error('Error scraping Flipkart:', error);
+        await browser.close();
+        return [];
+    }
 };
