@@ -1,5 +1,7 @@
 import puppeteer from "puppeteer";
 
+const exchangeRateUSDToINR = 75.50;
+
 export const scraper = async (productName) => {
     const browser = await puppeteer.launch({headless:true});
     const page = await browser.newPage();
@@ -14,7 +16,7 @@ export const scraper = async (productName) => {
 
     const price = await page.$$eval(
         "[data-component-type='s-search-result'] span.a-price[data-a-color='base'] span.a-offscreen",
-        (nodes) => nodes.map((n) => n.innerText)
+        (nodes) => nodes.map((n) => parseFloat(n.innerText.replace('$', '').replace(',', '')))
     );
 
     const image = await page.$$eval(
@@ -23,9 +25,10 @@ export const scraper = async (productName) => {
     );
 
     const amazonSearchArray = title.map((value, index) => {
+      const priceInINR = (price[index] * exchangeRateUSDToINR).toFixed(2);
       return {
         title: title[index],
-        price: price[index],
+        price: priceInINR,
         image: image[index]
       };
     });

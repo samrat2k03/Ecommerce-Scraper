@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Spinner from "../components/Spinner";
 
 function MainPage() {
     const [isProductSearch, setProductSearch] = useState("");
     const [amazonResult, setAmazonResult] = useState([]);
     const [flipkartResult, setFlipkartResult] = useState([]);
+    const [isLoading, setLoading] = useState(false);
 
     const searchProduct = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:5000/query/amazon/${isProductSearch}`);
-            setAmazonResult(response.data);
-            const response2 = await axios.get(`http://127.0.0.1:5000/query/flipkart/${isProductSearch}`);
-            setFlipkartResult(response2.data)
+            setLoading(true);
+            // const response = await axios.get(`http://127.0.0.1:5000/query/amazon/${isProductSearch}`);
+            // setAmazonResult(response.data);
+            // const response2 = await axios.get(`http://127.0.0.1:5000/query/flipkart/${isProductSearch}`);
+            // setFlipkartResult(response2.data);
+
+            // for simultaneous running 
+            const [amazonResponse, flipkartResponse] = await Promise.all([
+                axios.get(`http://127.0.0.1:5000/query/amazon/${isProductSearch}`),
+                axios.get(`http://127.0.0.1:5000/query/flipkart/${isProductSearch}`)
+            ]);
+            setAmazonResult(amazonResponse.data);
+            setFlipkartResult(flipkartResponse.data);
+            
         } catch (error) {
             console.log(error);
+        } finally{
+            setLoading(false);
         }
     };
 
@@ -56,30 +70,51 @@ function MainPage() {
             </form>
             {/* main table  */}
             {/* Display search results */}
+            {isLoading ? (
+                <Spinner /> 
+            ):(
             <div>
-                <p>
-                    Searched Product: <span className="text-red-300">{isProductSearch}</span>
-                </p>
-                {amazonResult.map((item, index) => (
-                        <li key={index}>
-                            <div>
-                                <p>Title: {item.title}</p>
-                                <p>Price: {item.price}</p>
-                                <img src={item.image} alt={item.title} />
-                            </div>
-                        </li>
-                    ))}
-
-                {flipkartResult.map((item, index) => (
-                    <li key={index}>
-                        <div>
-                            <h1>{item.name}</h1>
-                            <h1>{item.price}</h1>
-                            <img src={item.imageLink} alt={item.name} />
-                        </div>
-                    </li>
-                ))}
+                    {isProductSearch && (
+                        <p>
+                            Searched Product: <span className="text-red-300">{isProductSearch}</span>
+                        </p>
+                    )}
+                    <div className="flex justify-center mt-8">
+                    <table className="border-collapse border border-gray-400">
+                        <thead>
+                            <tr>
+                                <th className="border border-gray-400 px-4 py-2">Amazon</th>
+                                <th className="border border-gray-400 px-4 py-2">Flipkart</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {[...Array(Math.max(amazonResult.length, flipkartResult.length)).keys()].map(index => (
+                                <tr key={index}>
+                                    <td className="border border-gray-400 px-4 py-2">
+                                        {amazonResult[index] && (
+                                            <div>
+                                                <p>Title: {amazonResult[index].title}</p>
+                                                <p>Price: {amazonResult[index].price}</p>
+                                                <img src={amazonResult[index].image} alt={amazonResult[index].title} />
+                                            </div>
+                                        )}
+                                    </td>
+                                    <td className="border border-gray-400 px-4 py-2">
+                                        {flipkartResult[index] && (
+                                            <div>
+                                                <p>{flipkartResult[index].name}</p>
+                                                <p>{flipkartResult[index].price}</p>
+                                                <img src={flipkartResult[index].imageLink} alt={flipkartResult[index].name} />
+                                            </div>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            )}
         </div>
     );
 }
