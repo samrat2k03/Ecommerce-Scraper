@@ -1,8 +1,10 @@
-import express from "express"
+import express from "express";
+import cors from "cors";
 import {scraper} from "./scrapes/amazonRoute.js";
 import { flipkartScraper } from "./scrapes/flipkartRoute.js";
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 
