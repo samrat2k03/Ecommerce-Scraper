@@ -31,6 +31,34 @@ function MainPage() {
         }
     };
 
+    const determineVerdict = (amazonRating, flipkartRating) => {
+        if (amazonRating > flipkartRating) {
+            return(
+                <p className="text-red-500 font-bold font-poppins">
+                    Amazon
+                    <span className="text-green-500 pl-2">
+                    ✔
+                    </span>
+                </p>
+            );
+        } else if (amazonRating < flipkartRating) {
+            return(
+                <p className="text-blue-500 font-bold font-poppins">
+                    Flipkart
+                    <span className="text-green-500 pl-2">
+                    ✔
+                    </span>
+                </p>
+            );
+        } else {
+            return(
+                <p className="text-red-500 font-bold font-poppins">
+                    Not Decidable
+                </p>
+            );
+        }
+    };
+
     useEffect(() => {
     }, []);
 
@@ -75,16 +103,17 @@ function MainPage() {
             ):(
             <div>
                     {isProductSearch && (
-                        <p className="text-center font-poppins text-xl pt-[3%] text-white">
+                        <p className="text-center font-poppins text-xl pt-[3%] text-white font-semibold">
                             Searched Product: <span className="text-red-300">{isProductSearch}</span>
                         </p>
                     )}
                     <div className="flex justify-center mt-8">
-                    <table className="border-collapse border border-gray-400 bg-white rounded-[20px] w-[70%]">
+                    <table className="border-collapse border border-gray-400 bg-white rounded-[10px] w-[90%]">
                         <thead>
                             <tr>
-                                <th className="border border-gray-400 px-4 py-2 font-poppins">Amazon</th>
-                                <th className="border border-gray-400 px-4 py-2 font-poppins">Flipkart</th>
+                                <th className="border border-gray-400 px-4 py-2 font-poppins bg-[#c3f0ff]">Amazon</th>
+                                <th className="border border-gray-400 px-4 py-2 font-poppins bg-[#c3f0ff]">Flipkart</th>
+                                <th className="border border-gray-400 px-4 py-2 font-poppins bg-[#c3f0ff]">Verdict</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -139,6 +168,11 @@ function MainPage() {
                                                 </a>
                                             </div>
                                         )}
+                                    </td>
+                                    <td className="border border-gray-400 px-4 py-2">
+                                            {amazonResult[index] && flipkartResult[index] && (
+                                                determineVerdict(amazonResult[index].rating, flipkartResult[index].rating)
+                                            )}
                                     </td>
                                 </tr>
                             ))}
