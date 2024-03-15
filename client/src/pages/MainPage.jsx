@@ -104,6 +104,9 @@ function MainPage() {
                                                     </span>
                                                     ₹{amazonResult[index].price}</p>
                                                 <img className="w-[80%]" src={amazonResult[index].image} alt={amazonResult[index].title} />
+                                                <a href={amazonResult[index].link}>
+                                                    <button className="bg-black px-1.5 py-1.5 rounded-xl text-white hover:text-black hover:bg-white">Go to site</button>
+                                                </a>
                                             </div>
                                         )}
                                     </td>
@@ -121,6 +124,9 @@ function MainPage() {
                                                     </span>
                                                     {flipkartResult[index].price}</p>
                                                 <img className="w-[40%]" src={flipkartResult[index].imageLink} alt={flipkartResult[index].name} />
+                                                <a href={flipkartResult[index].productLink}>
+                                                    <button className="bg-black px-1.5 py-1.5 rounded-xl text-white hover:text-black hover:bg-white">Go to site</button>
+                                                </a>
                                             </div>
                                         )}
                                     </td>

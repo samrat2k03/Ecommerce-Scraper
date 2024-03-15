@@ -20,10 +20,12 @@ export const flipkartScraper = async (productName) => {
                 const price = priceElement.textContent.trim();
                 const imageElement = node.querySelector('img._396cs4');
                 const imageLink = imageElement.src;
+                const productLink = linkElement.href;
 
                 product.name = name;
                 product.price = price;
                 product.imageLink = imageLink;
+                product.productLink = productLink;
 
                 productList.push(product);
             });

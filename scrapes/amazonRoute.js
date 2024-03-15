@@ -24,12 +24,18 @@ export const scraper = async (productName) => {
         (nodes) => nodes.map((n) => n.src)
     );
 
+    const links = await page.$$eval(
+      "[data-component-type='s-search-result'] a.a-link-normal.a-text-normal",
+      (nodes) => nodes.map((n) => n.href)
+  );
+
     const amazonSearchArray = title.map((value, index) => {
       const priceInINR = (price[index] * exchangeRateUSDToINR).toFixed(2);
       return {
         title: title[index],
         price: priceInINR,
-        image: image[index]
+        image: image[index],
+        link: links[index]
       };
     });
 
