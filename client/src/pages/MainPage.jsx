@@ -44,8 +44,8 @@ function MainPage() {
         <div>
             {/* title  */}
             <div className="text-center pt-5 text-white">
-                <h1 className="text-6xl font-bold p-5 text-white">Ecommerce Scraper</h1>
-                <p className="text-xl">Web scraper for Ecommerce sites</p>
+                <h1 className="text-6xl font-bold p-5 text-white font-poppins">Ecommerce Scraper</h1>
+                <p className="text-xl font-poppins">Web scraper for Ecommerce sites</p>
             </div>
             {/* main content  */}
             {/* search box  */}
@@ -56,7 +56,7 @@ function MainPage() {
                         name="search_product"
                         id="search_product"
                         placeholder="Search Products..."
-                        className="p-2 rounded-md outline-none w-[50%] bg-[#ede5e5]"
+                        className="p-2 rounded-md outline-none w-[50%] bg-[#ede5e5] font-poppins"
                         value={isProductSearch}
                         onChange={(e) => setProductSearch(e.target.value)}
                     />
@@ -75,12 +75,12 @@ function MainPage() {
             ):(
             <div>
                     {isProductSearch && (
-                        <p>
+                        <p className="text-center font-poppins text-xl pt-[3%] text-white">
                             Searched Product: <span className="text-red-300">{isProductSearch}</span>
                         </p>
                     )}
                     <div className="flex justify-center mt-8">
-                    <table className="border-collapse border border-gray-400">
+                    <table className="border-collapse border border-gray-400 bg-slate-100">
                         <thead>
                             <tr>
                                 <th className="border border-gray-400 px-4 py-2">Amazon</th>

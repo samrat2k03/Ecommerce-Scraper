@@ -1,10 +1,10 @@
 import MainPage from "./pages/MainPage"
-// import "./grad.css"
+import WelcomePage from "./pages/WelcomePage"
 
-function App() {
+function App() {  
   return (
     <div className="bg-[#223449]  min-h-screen">
-    <MainPage />
+      <MainPage /> 
     </div>
   )
 }
