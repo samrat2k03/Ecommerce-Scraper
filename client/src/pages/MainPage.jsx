@@ -80,11 +80,11 @@ function MainPage() {
                         </p>
                     )}
                     <div className="flex justify-center mt-8">
-                    <table className="border-collapse border border-gray-400 bg-slate-100">
+                    <table className="border-collapse border border-gray-400 bg-white rounded-[20px] w-[70%]">
                         <thead>
                             <tr>
-                                <th className="border border-gray-400 px-4 py-2">Amazon</th>
-                                <th className="border border-gray-400 px-4 py-2">Flipkart</th>
+                                <th className="border border-gray-400 px-4 py-2 font-poppins">Amazon</th>
+                                <th className="border border-gray-400 px-4 py-2 font-poppins">Flipkart</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,19 +92,35 @@ function MainPage() {
                                 <tr key={index}>
                                     <td className="border border-gray-400 px-4 py-2">
                                         {amazonResult[index] && (
-                                            <div>
-                                                <p>Title: {amazonResult[index].title}</p>
-                                                <p>Price: {amazonResult[index].price}</p>
-                                                <img src={amazonResult[index].image} alt={amazonResult[index].title} />
+                                            <div className="flex flex-col items-center gap-3">
+                                                <p className="font-poppins">
+                                                    <span className="text-red-500 pr-2">
+                                                        Title: 
+                                                    </span> 
+                                                    {amazonResult[index].title}</p>
+                                                <p className="font-poppins">
+                                                    <span className="text-red-500 pr-2">
+                                                        Price:     
+                                                    </span>
+                                                    ₹{amazonResult[index].price}</p>
+                                                <img className="w-[80%]" src={amazonResult[index].image} alt={amazonResult[index].title} />
                                             </div>
                                         )}
                                     </td>
                                     <td className="border border-gray-400 px-4 py-2">
                                         {flipkartResult[index] && (
-                                            <div>
-                                                <p>{flipkartResult[index].name}</p>
-                                                <p>{flipkartResult[index].price}</p>
-                                                <img src={flipkartResult[index].imageLink} alt={flipkartResult[index].name} />
+                                            <div className="flex flex-col items-center gap-3">
+                                                <p  className="font-poppins">
+                                                    <span className="text-red-500 pr-2">
+                                                        Title: 
+                                                    </span> 
+                                                    {flipkartResult[index].name}</p>
+                                                <p className="font-poppins">
+                                                    <span className="text-red-500 pr-2">
+                                                        Price:     
+                                                    </span>
+                                                    {flipkartResult[index].price}</p>
+                                                <img className="w-[40%]" src={flipkartResult[index].imageLink} alt={flipkartResult[index].name} />
                                             </div>
                                         )}
                                     </td>
