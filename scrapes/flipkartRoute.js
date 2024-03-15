@@ -21,11 +21,14 @@ export const flipkartScraper = async (productName) => {
                 const imageElement = node.querySelector('img._396cs4');
                 const imageLink = imageElement.src;
                 const productLink = linkElement.href;
+                const ratingElement = node.querySelector('div._3LWZlK');
+                const rating = ratingElement ? ratingElement.textContent.trim() : 'No rating available / f-assured';
 
                 product.name = name;
                 product.price = price;
                 product.imageLink = imageLink;
                 product.productLink = productLink;
+                product.rating = rating;
 
                 productList.push(product);
             });

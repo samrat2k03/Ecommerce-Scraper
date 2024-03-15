@@ -27,7 +27,12 @@ export const scraper = async (productName) => {
     const links = await page.$$eval(
       "[data-component-type='s-search-result'] a.a-link-normal.a-text-normal",
       (nodes) => nodes.map((n) => n.href)
-  );
+    );
+
+    const ratings = await page.$$eval(
+      "[data-component-type='s-search-result'] .a-icon-star-small .a-icon-alt",
+      (nodes) => nodes.map((n) => n.textContent.split(' ')[0])
+    );
 
     const amazonSearchArray = title.map((value, index) => {
       const priceInINR = (price[index] * exchangeRateUSDToINR).toFixed(2);
@@ -35,7 +40,8 @@ export const scraper = async (productName) => {
         title: title[index],
         price: priceInINR,
         image: image[index],
-        link: links[index]
+        link: links[index],
+        rating: ratings[index]
       };
     });
 
