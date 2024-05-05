@@ -1,5 +1,5 @@
-import MainPage from "./pages/MainPage"
 import WelcomePage from "./pages/WelcomePage"
+import ProductSearch from "./pages/ProductSearch";
 import Dummpy1 from "./pages/Dummpy"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<WelcomePage />} />;
-        <Route path="/ecommerce-scraper" element={<Dummpy1 />} />;
+        <Route path="/ecommerce-scraper" element={<ProductSearch />} />;
       </Routes>
       </BrowserRouter>
     </div>
