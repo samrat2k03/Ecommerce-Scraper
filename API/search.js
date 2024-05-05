@@ -171,13 +171,14 @@ const search = async (q, host) => {
         }
     }
 
-    return {
-        total_result: result.length,
-        query: q,
-        fetch_from: searchURL,
-        result
-    };
+    // return {
+    //     // total_result: result.length,
+    //     // query: q,
+    //     // fetch_from: searchURL,
+    //     result
+    // };
 
+    return result;
 }
 
 const clean = (link) => {

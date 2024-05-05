@@ -21,15 +21,15 @@ app.get('/query/amazon/:name', async (req, res) => {
     }
 });
 
-app.get('/query/flipkart/:name', async (req, res) => {
-    const product_name = req.params.name;0
-    const flipkartSearchArray = await flipkartScraper(product_name);
-    if (flipkartSearchArray.length > 0) {
-        res.json(flipkartSearchArray);
-    } else {
-        res.status(404).send("Product not found or please provide product name");
-    }
-});
+// app.get('/query/flipkart/:name', async (req, res) => {
+//     const product_name = req.params.name;0
+//     const flipkartSearchArray = await flipkartScraper(product_name);
+//     if (flipkartSearchArray.length > 0) {
+//         res.json(flipkartSearchArray);
+//     } else {
+//         res.status(404).send("Product not found or please provide product name");
+//     }
+// });
 
 app.get('/search/flipkart-new/:product', function(req, res) {
     search(req.params.product, 'flipkart.com').then((data) => {
