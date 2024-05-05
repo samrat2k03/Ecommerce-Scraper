@@ -3,6 +3,9 @@ import cors from "cors";
 import {scraper} from "./scrapes/amazonRoute.js";
 import { flipkartScraper } from "./scrapes/flipkartRoute.js";
 
+// new api's code
+import search from "./API/search.js";
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -26,6 +29,14 @@ app.get('/query/flipkart/:name', async (req, res) => {
     } else {
         res.status(404).send("Product not found or please provide product name");
     }
+});
+
+app.get('/search/flipkart-new/:product', function(req, res) {
+    search(req.params.product, 'flipkart.com').then((data) => {
+        res.json(data);
+    }).catch((err) => {
+        res.json(err);
+    })
 });
 
 
