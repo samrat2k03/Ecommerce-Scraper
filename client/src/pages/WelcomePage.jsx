@@ -50,7 +50,7 @@ function WelcomePage() {
       </div>
       <div className="absolute bottom-0 mb-6 text-center w-full">
         <p className="text-gray-300 text-sm">
-          Developed by Dinakaran, Akash, Thennavan
+          Developed by Samrat
         </p>
       </div>
     </div>
